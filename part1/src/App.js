@@ -10,7 +10,7 @@ const Button = (props) => (
 
 // No defina componentes adentro de otro componente
 
-const Display = ({ value, text }) => <div>{text} {value}</div>
+const Display = ({ value, text }) => <div>{text} {value ? value : '0'}</div>
 
 const App = () => {
   // save clicks of each button to its own state
@@ -21,6 +21,10 @@ const App = () => {
   const increaseGood = () => setGood(good + 1)
   const increaseNeutral = () => setNeutral(neutral + 1)
   const increaseBad = () => setBad(bad + 1)
+
+  const getAllVotes = () => good + neutral + bad
+  const getPositive = () => (good * 100) / getAllVotes()
+  const getAverage = () => (getAllVotes() / getAllVotes())
 
 
 
@@ -35,6 +39,11 @@ const App = () => {
       <Display value={good} text="Good" />
       <Display value={neutral} text="Neutral" />
       <Display value={bad} text="Bad" />
+      <Display value={getAllVotes()} text="All" />
+      <Display value={getPositive()} text="Positive" />
+      <Display value={getAverage()} text="Average" />
+
+
 
 
     </div>
