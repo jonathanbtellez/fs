@@ -8,9 +8,24 @@ const Button = (props) => (
   </button>
 )
 
+const Statistics = (props) => {
+  const { good, neutral, bad, getAllVotes, getPositive, getAverage } = props.values
+  return (
+    <>
+      <h1>Statistics</h1>
+      {getAllVotes() ? <> <StatisticsLine value={good} text="Good" />
+        <StatisticsLine value={neutral} text="Neutral" />
+        <StatisticsLine value={bad} text="Bad" />
+        <StatisticsLine value={getAllVotes()} text="All" />
+        <StatisticsLine value={getPositive()} text="Positive" />
+        <StatisticsLine value={getAverage()} text="Average" /></> : <StatisticsLine text="No feedback given" />}
+    </>
+  )
+}
+
 // No defina componentes adentro de otro componente
 
-const Statistics = ({ value, text }) => <div>{text} {value ? value : ''}</div>
+const StatisticsLine = ({ value, text }) => <div>{text} {value ? value : ''}</div>
 
 const App = () => {
   // save clicks of each button to its own state
@@ -35,16 +50,7 @@ const App = () => {
       <Button handleClick={increaseNeutral} text="Neutral" />
       <Button handleClick={increaseBad} text="Bad" />
 
-      <h1>Statistics</h1>
-      {getAllVotes() ? <> <Statistics value={good} text="Good" />
-        <Statistics value={neutral} text="Neutral" />
-        <Statistics value={bad} text="Bad" />
-        <Statistics value={getAllVotes()} text="All" />
-        <Statistics value={getPositive()} text="Positive" />
-        <Statistics value={getAverage()} text="Average" /></> : <Statistics text="No feedback given" />}
-
-
-
+      <Statistics values={{ good, neutral, bad, getAllVotes, getPositive, getAverage }} />
 
     </div>
   )
