@@ -9,7 +9,7 @@ function Content({ parts }) {
                     <Part key={part.id} part={part} />
                 )
             }
-            <p><b>Total: </b> {parts.reduce((sum, part) => sum += part.exercises, 0)}</p>
+            <p><b>Total of  {parts.reduce((sum, part) => sum += part.exercises, 0)}  exercises</b></p>
         </ul>
 
     )
