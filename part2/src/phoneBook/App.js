@@ -12,6 +12,12 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault();
+    if (newName === "") return
+
+    const personInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+
+    if (personInBook) return alert(`${newName} already exist in the book`)
+
     setPersons([...persons, { name: newName }])
     setNewName("")
   }
