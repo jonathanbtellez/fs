@@ -19,6 +19,7 @@ const App = () => {
 
   const filteredResult = countries.filter(country => country.name.common.toLowerCase().includes(newSearch.toLowerCase()))
 
+  const handleShow = (country) => setNewSearch(country)
 
   return (
     <div>
@@ -29,7 +30,7 @@ const App = () => {
         : filteredResult.length > 11
           ? <p>Too many matches specify another filter</p>
           : filteredResult.length > 1
-            ? <CountriesList countries={filteredResult} />
+            ? <CountriesList countries={filteredResult} onShow={handleShow} />
             : <Country country={filteredResult[0]} />}
 
     </div>

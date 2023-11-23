@@ -1,8 +1,8 @@
 import React from 'react'
 
-function CountriesList({ countries }) {
+function CountriesList({ countries, onShow }) {
     return (
-        countries.map(country => <p key={country.name.common}>{country.name.common}</p>)
+        countries.map(country => <div key={country.name.common}> <p>{country.name.common}</p> <button onClick={() => onShow(country.name.common)} >Show</button></div>)
     )
 }
 
