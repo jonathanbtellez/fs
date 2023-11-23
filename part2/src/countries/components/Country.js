@@ -45,7 +45,7 @@ function Country({ country }) {
                             }
                         </ul>
                         <img src={country.flags.png} alt={country.flags.alt} />
-                        <h3>weather in {country.capital}</h3>
+                        <h3>weather in {country.capital}.</h3>
                         {weather
                             ? <>
                                 <p>Temperature: {weather.current.temperature}</p>
