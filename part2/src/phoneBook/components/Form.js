@@ -17,10 +17,10 @@ function Form({ persons, handlePersons }) {
         if (newNumber === "") return
 
         const isPersonInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
-        if (isPersonInBook) return alert(`${newName} already exist in the book`)
+        if (isPersonInBook) return alert(`${newName} already exist in the book.`)
 
         const isNumberInBook = persons.find(person => person.number.toLowerCase() === newNumber.toLowerCase())
-        if (isNumberInBook) return alert(`${newNumber} already exist in the book`)
+        if (isNumberInBook) return alert(`${newNumber} already exist in the book.`)
 
         personsServices
             .create({ name: newName, number: newNumber })
