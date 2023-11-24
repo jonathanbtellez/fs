@@ -47,11 +47,11 @@ function Country({ country }) {
                         <img src={country.flags.png} alt={country.flags.alt} />
                         {weather
                             ? <>
-                                <h3 h3 > weather in {country.capital}.</h3>
+                                <h3> Weather in {country.capital}.</h3>
                                 <p>Temperature: {weather.current.temperature}</p>
                                 <img src={weather.current.weather_icons[0]} alt='weather icon' />
                             </>
-                            : <>There is not information available in this moment</>
+                            : <div>There is not information available in this moment</div>
                         }
 
                     </>

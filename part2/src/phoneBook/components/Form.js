@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import personsServices from '../../services/persons'
 function Form({ persons, handlePersons }) {
 
     const [newName, setNewName] = useState('')
@@ -16,11 +16,18 @@ function Form({ persons, handlePersons }) {
         if (newName === "") return
         if (newNumber === "") return
 
-        const personInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+        const isPersonInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+        if (isPersonInBook) return alert(`${newName} already exist in the book`)
 
-        if (personInBook) return alert(`${newName} already exist in the book`)
+        const isNumberInBook = persons.find(person => person.number.toLowerCase() === newNumber.toLowerCase())
+        if (isNumberInBook) return alert(`${newNumber} already exist in the book`)
 
-        handlePersons([...persons, { name: newName, number: newNumber }])
+        personsServices
+            .create({ name: newName, number: newNumber })
+            .then(createdPerson =>
+                handlePersons([...persons, createdPerson])
+            )
+
         setNewName("")
         setNewNumber("")
     }
