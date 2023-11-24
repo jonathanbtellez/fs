@@ -4,11 +4,14 @@ import personsServices from '../../services/persons'
 
 function Persons({ persons, handlePersons }) {
     const handleDelete = (id) => {
-        personsServices
-            .deletePerson(id)
-            .then(() => {
-                handlePersons(persons.filter(person => person.id !== id))
-            })
+        const wasConfirmed = window.confirm('Are you sure?')
+        if (wasConfirmed) {
+            personsServices
+                .deletePerson(id)
+                .then(() => {
+                    handlePersons(persons.filter(person => person.id !== id))
+                })
+        }
     }
     return (
         <ul>

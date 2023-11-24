@@ -16,12 +16,21 @@ function Form({ persons, handlePersons }) {
         if (newName === "") return
         if (newNumber === "") return
 
-        const isPersonInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
-        if (isPersonInBook) return alert(`${newName} already exist in the book.`)
-
         const isNumberInBook = persons.find(person => person.number.toLowerCase() === newNumber.toLowerCase())
-        if (isNumberInBook) return alert(`${newNumber} already exist in the book.`)
+        if (isNumberInBook) return alert(`the number ${newNumber} already exist in the book.`)
 
+        const isPersonInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+
+        let isConfirmed = false
+        if (isPersonInBook) { isConfirmed = window.confirm(`${newName} already exist in the book, Do you want replace the old number with a new one?`) }
+
+        if (isConfirmed) {
+            personsServices
+                .update(isPersonInBook.id, { name: newName, number: newNumber })
+                .then(returnedPerson =>
+                    handlePersons(persons.map(person => person.id !== isPersonInBook.id ? person : returnedPerson))
+                )
+        }
         personsServices
             .create({ name: newName, number: newNumber })
             .then(createdPerson =>
