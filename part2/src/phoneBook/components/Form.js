@@ -31,14 +31,17 @@ function Form({ persons, handlePersons }) {
                     handlePersons(persons.map(person => person.id !== isPersonInBook.id ? person : returnedPerson))
                 )
         }
-        personsServices
-            .create({ name: newName, number: newNumber })
-            .then(createdPerson =>
-                handlePersons([...persons, createdPerson])
-            )
 
-        setNewName("")
-        setNewNumber("")
+        if (!isConfirmed) {
+            personsServices
+                .create({ name: newName, number: newNumber })
+                .then(createdPerson =>
+                    handlePersons([...persons, createdPerson])
+                )
+
+            setNewName("")
+            setNewNumber("")
+        }
     }
     return (
         <form onSubmit={addPerson}>
