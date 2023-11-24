@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import personsServices from '../../services/persons'
-function Form({ persons, handlePersons }) {
+function Form({ persons, handlePersons, handleNotification }) {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState("")
@@ -27,21 +27,33 @@ function Form({ persons, handlePersons }) {
         if (isConfirmed) {
             personsServices
                 .update(isPersonInBook.id, { name: newName, number: newNumber })
-                .then(returnedPerson =>
+                .then(returnedPerson => {
                     handlePersons(persons.map(person => person.id !== isPersonInBook.id ? person : returnedPerson))
-                )
+                    handleNotification(
+                        `${returnedPerson.name} was updated`
+                    )
+                    setTimeout(() => {
+                        handleNotification(null)
+                    }, 5000)
+                })
         }
 
         if (!isConfirmed) {
             personsServices
                 .create({ name: newName, number: newNumber })
-                .then(createdPerson =>
+                .then(createdPerson => {
                     handlePersons([...persons, createdPerson])
-                )
+                    handleNotification(
+                        `${createdPerson.name} information was saved`
+                    )
+                    setTimeout(() => {
+                        handleNotification(null)
+                    }, 5000)
+                })
 
-            setNewName("")
-            setNewNumber("")
         }
+        setNewName("")
+        setNewNumber("")
     }
     return (
         <form onSubmit={addPerson}>
