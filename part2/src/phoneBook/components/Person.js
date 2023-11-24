@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Person({ person }) {
+function Person({ person, onDelete }) {
     return (
-        <li key={person.id}>{person.name} - {person.number}</li>
+        <li key={person.id}>{person.name} - {person.number}    <button onClick={() => onDelete(person.id)}>delete</button></li>
     )
 }
 

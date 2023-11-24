@@ -1,10 +1,18 @@
 import React from 'react'
 import Person from './Person'
+import personsServices from '../../services/persons'
 
-function Persons({ persons }) {
+function Persons({ persons, handlePersons }) {
+    const handleDelete = (id) => {
+        personsServices
+            .deletePerson(id)
+            .then(() => {
+                handlePersons(persons.filter(person => person.id !== id))
+            })
+    }
     return (
         <ul>
-            {persons.length > 0 ? persons.map(person => <Person key={person.id} person={person} />) : <p>No contact found</p>}
+            {persons.length > 0 ? persons.map(person => <Person key={person.id} person={person} onDelete={handleDelete} />) : <p>No contact found</p>}
         </ul>
 
     )
