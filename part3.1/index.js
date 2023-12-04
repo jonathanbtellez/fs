@@ -6,17 +6,17 @@ let persons = [
     {
         id: 1,
         name: 'Arto Hellas',
-        number: 3124567845
+        number: 3124567847
     },
     {
         id: 2,
         name: 'Pedro Castro',
-        number: 3124567845
+        number: 3124567840
     },
     {
         id: 3,
         name: 'Ana Rita',
-        number: 3124567845
+        number: 3124567843
     },
     {
         id: 4,
@@ -32,11 +32,29 @@ app.get('/api/v1/persons', (req, res) => {
 app.post('/api/v1/persons', (req, res) => {
     const body = req.body
 
+    if (!body.name) {
+        res.status(400).send({ error: "Number is required" }).end();
+        return
+    }
+
+    if (!body.number) {
+        res.status(400).send({ error: "Number is required" }).end();
+        return
+    }
+
+    const isNameUnique = persons.find(person => person.name === body.name)
+    const isNumberUnique = persons.find(person => person.number === Number(body.number))
+
+    if (isNameUnique) return res.status(400).send({ error: "Name must be unique" }).end();
+    if (isNumberUnique) return res.status(400).send({ error: "Number must be unique" }).end();
+
+
     const person = {
         id: Math.floor(Math.random() * 10000),
         name: body.name,
         number: body.number
     }
+
 
     persons = [...persons, person]
 
