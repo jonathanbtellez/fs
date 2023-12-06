@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
@@ -96,3 +97,5 @@ app.use(unknownEndpoint)
 const PORT = process.env.PORT || 3001
 app.listen(PORT)
 console.log('server runnig in http://localhost:3001')
+
+// "build:ui": "@powershell Remove-Item -Recurse -Force build && cd ../../osa2/materiaali/notes-new && npm run build && @powershell Copy-Item build -Recurse ../../../osa3/notes-backend/",
