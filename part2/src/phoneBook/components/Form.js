@@ -16,7 +16,7 @@ function Form({ persons, handlePersons, handleNotification }) {
         if (newName === "") return
         if (newNumber === "") return
 
-        const isNumberInBook = persons.find(person => person.number.toLowerCase() === newNumber.toLowerCase())
+        const isNumberInBook = persons.find(person => person.number === newNumber)
         if (isNumberInBook) return alert(`the number ${newNumber} already exist in the book.`)
 
         const isPersonInBook = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
