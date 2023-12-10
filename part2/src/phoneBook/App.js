@@ -39,7 +39,8 @@ const App = () => {
       <Form
         persons={persons}
         handlePersons={setPersons}
-        handleNotification={setNotificationMessageSuccess} />
+        handleNotification={setNotificationMessageSuccess}
+        handleNotificationError={setNotificationMessageError} />
       <h2>Numbers</h2>
       ...
       <Persons

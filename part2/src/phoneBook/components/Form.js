@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import personsServices from '../../services/persons'
-function Form({ persons, handlePersons, handleNotification }) {
+function Form({ persons, handlePersons, handleNotification, handleNotificationError }) {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState("")
+
     const handleNameChange = (event) => {
         setNewName(event.target.value)
     }
@@ -13,8 +14,7 @@ function Form({ persons, handlePersons, handleNotification }) {
     }
     const addPerson = (event) => {
         event.preventDefault();
-        if (newName === "") return
-        if (newNumber === "") return
+        console.log('asdfasdf')
 
         const isNumberInBook = persons.find(person => person.number === newNumber)
         if (isNumberInBook) return alert(`the number ${newNumber} already exist in the book.`)
@@ -49,22 +49,31 @@ function Form({ persons, handlePersons, handleNotification }) {
                     setTimeout(() => {
                         handleNotification(null)
                     }, 5000)
+                }).catch(error => {
+                    handleNotificationError(
+                        error.response.data.error
+                    )
+                    setTimeout(() => {
+                        handleNotificationError(null)
+                    }, 5000)
                 })
-
         }
         setNewName("")
         setNewNumber("")
     }
     return (
-        <form onSubmit={addPerson}>
-            <div>
-                name: <input value={newName} onChange={handleNameChange} />
-                number: <input value={newNumber} onChange={handleNumberChange} />
-            </div>
-            <div>
-                <button type="submit">add</button>
-            </div>
-        </form>
+        <>
+            <form onSubmit={addPerson}>
+                <div>
+                    name: <input value={newName} onChange={handleNameChange} />
+                    number: <input value={newNumber} onChange={handleNumberChange} />
+                </div>
+                <div>
+                    <button type="submit">add</button>
+                </div>
+            </form>
+        </>
+
     )
 }
 
