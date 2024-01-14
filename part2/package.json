@@ -17,7 +17,8 @@
     "test": "set CI=true && react-scripts test --detectOpenHandles",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "server": "json-server -p3001 --watch db.json"
+    "server": "json-server -p3001 --watch db.json",
+    "test:e2e": "cypress run"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {

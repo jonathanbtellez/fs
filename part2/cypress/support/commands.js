@@ -11,8 +11,28 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
+
+Cypress.Commands.add('login', ({ username, password }) => {
+    cy.request('POST', 'http://localhost:3001/api/v1/login', {
+        username, password
+    }).then(({ body }) => {
+        localStorage.setItem('loggedNoteappUser', JSON.stringify(body))
+        cy.visit('')
+    })
+})
+
+Cypress.Commands.add('createNote', ({ content, important }) => {
+    cy.request({
+      url: 'http://localhost:3001/api/v1/notes',
+      method: 'POST',
+      body: { content, important },
+      headers: {
+        'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedNoteappUser')).token}`
+      }
+    })
+  
+    cy.visit('')
+  })
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //
